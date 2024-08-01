@@ -39,7 +39,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        
+       
         $data = $request->validated();
 
 
@@ -63,7 +63,8 @@ $project->title = $data['title'];
 $project->slug = $data['slug'];
 $project->img = $img_path;
 $project->type_id = $data['type_id'];
-
+$project->new_tech = $data[''];
+dd($data);
 
 //$project->fill($data);
 $project->save();
@@ -85,15 +86,18 @@ return redirect()->route('admin.Projects.index')->with('message', 'Progetto crea
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project)
-    {$types= Type::all();
-        return view('project.edit',compact("project","types"));
+    {
+    $technologies=Technology::all();
+    $types= Type::all();
+        return view('project.edit',compact("project","types","technologies"));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateProjectRequest $request, project $project)
-    {
+    { 
+        
         $data = $request->validated();
 
 
@@ -112,7 +116,7 @@ return redirect()->route('admin.Projects.index')->with('message', 'Progetto crea
         $project->slug = $data['slug'];
         $project->img = $img_path;
         $project->type_id = $data['type_id'];
-
+        $project->name = $data['id'];
         //$project->fill($data);
         $project->save();
                     

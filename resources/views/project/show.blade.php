@@ -2,8 +2,6 @@
 
 @section('content')
     <div class="container">
-
-
         <div class="header-page  pb-2 mb-4">
             <div class=" d-flex justify-content-between align-items-center">
                 <h1>{{ $project->title }}</h1>
@@ -26,6 +24,17 @@
         @else
             non sono presenti type
         @endif
+        <br>
+
+        @if ($project->technologies)
+            @foreach ($project->technologies as $tech)
+                {{ $tech->name }}
+            @endforeach
+        @endif
+
+
+
+
 
         <hr>
         @if ($project->img)

@@ -7,6 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class ProjectSeeder extends Seeder
@@ -16,7 +17,7 @@ class ProjectSeeder extends Seeder
      */
     
     public function run(faker $faker): void
-    {
+    {Schema::disableForeignKeyConstraints();
         DB::table('Projects')->truncate();
         for($i=1;$i<=10;$i++){
         $project= new Project();
@@ -33,5 +34,6 @@ class ProjectSeeder extends Seeder
         $project->save();
         
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

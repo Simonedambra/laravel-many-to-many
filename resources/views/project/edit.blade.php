@@ -35,6 +35,16 @@
 
                 </select>
             </div>
+            @foreach ($technologies as $tech)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="name"
+                        value="{{ old($tech->name) }}"@if (old($tech->name)) checked @endif>
+                    <label class="form-check-label" for="name">{{ $tech->name }}</label>
+                </div>
+            @endforeach
+
+
+
             <div class="mb-3">
                 <label for="img" class="form-label">Image</label>
                 <input class="form-control" type="file" id="img" name="img" value="{{ old('img') }}">

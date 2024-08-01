@@ -35,13 +35,10 @@
 
 
             @foreach ($technologies as $tech)
-                <div class="container d-flex">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="{{ old($tech->name) }}" id="name">
-                        <label class="form-check-label" for="name">
-                            {{ $tech->name }}
-                        </label>
-                    </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="name"
+                        value="{{ old($tech->name) }}"@if (old($tech->name)) checked @endif>
+                    <label class="form-check-label" for="name">{{ $tech }}</label>
                 </div>
             @endforeach
 
