@@ -27,6 +27,7 @@ class UpdateProjectRequest extends FormRequest
         'skills' => 'nullable',
         'slug' => 'nullable|unique:projects,slug',
         'type_id'=>'nullable',
+        'technologies'=>'nullable|exists:technologies,id'
         ];
     }
 }

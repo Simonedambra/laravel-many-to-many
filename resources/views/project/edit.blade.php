@@ -37,9 +37,10 @@
             </div>
             @foreach ($technologies as $tech)
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="name"
-                        value="{{ old($tech->name) }}"@if (old($tech->name)) checked @endif>
-                    <label class="form-check-label" for="name">{{ $tech->name }}</label>
+                    <input class="form-check-input" type="checkbox" name="technologies[]" value="{{ $tech->id }}"
+                        id="{{ $tech->id }}" @if (old('technologies', $project->technologies->pluck('id')->toArray()) &&
+                                in_array($tech->id, old('technologies', $project->technologies->pluck('id')->toArray()))) checked @endif>
+                    <label class="form-check-label" for="{{ $tech->id }}">{{ $tech->name }}</label>
                 </div>
             @endforeach
 

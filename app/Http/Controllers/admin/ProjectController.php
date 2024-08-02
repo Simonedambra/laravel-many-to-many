@@ -63,11 +63,15 @@ $project->title = $data['title'];
 $project->slug = $data['slug'];
 $project->img = $img_path;
 $project->type_id = $data['type_id'];
-$project->new_tech = $data[''];
-dd($data);
+
+$project->save();
+if ($request->has('technologies')) {
+    $project->technologies()->attach($request->technologies);
+} 
+
 
 //$project->fill($data);
-$project->save();
+
 
 return redirect()->route('admin.Projects.index')->with('message', 'Progetto creato con successo!');
        
@@ -98,27 +102,26 @@ return redirect()->route('admin.Projects.index')->with('message', 'Progetto crea
     public function update(UpdateProjectRequest $request, project $project)
     { 
         
-        $data = $request->validated();
+         // Gestione dello slug
+    $data = $request->all();
+    $data['slug'] = Str::of($data['title'])->slug();
 
+    // Gestione dell'immagine
+    $img_path = $request->hasFile('img') ? Storage::put('uploads', $data['img']) : NULL;
+    
+    $project->title = $data['title'];
+    $project->slug = $data['slug'];
+    $project->img = $img_path;
+    $project->type_id = $data['type_id'];
+    
+    // Salvataggio delle tecnologie
+    if ($request->has('technologies')) {
+        $project->technologies()->sync($data['technologies']);
+    } else {
+        $project->technologies()->sync([]);
+    }
 
-        //gestione slug
-        $data['slug'] = Str::of($data['title'])->slug();
-        //gestione immagine
-
-
-        $img_path = $request->hasFile('img') ? Storage::put('uploads', $data['img']) : NULL;
-
-        // $img_path = $request->hasFile('cover_image') ? $request->cover_image->store('uploads') : NULL;
-
-
-        $project->title = $data['title'];
-
-        $project->slug = $data['slug'];
-        $project->img = $img_path;
-        $project->type_id = $data['type_id'];
-        $project->name = $data['id'];
-        //$project->fill($data);
-        $project->save();
+    $project->save();
                     
         return redirect()->route('admin.Projects.index')->with('message'.' - Post aggiornato correttamente');
     }

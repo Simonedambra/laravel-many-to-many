@@ -19,22 +19,22 @@
 
         </p>
         <hr>
-        Category:@if ($project->type?->title)
+        Category:
+        @if ($project->type?->title)
             {{ $project->type->title }}
         @else
             non sono presenti type
         @endif
         <br>
 
-        @if ($project->technologies)
+        Technology:
+        @if (count($project->technologies) > 0)
             @foreach ($project->technologies as $tech)
                 {{ $tech->name }}
             @endforeach
+        @else
+            non ci sono tecnology
         @endif
-
-
-
-
 
         <hr>
         @if ($project->img)
