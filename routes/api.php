@@ -19,4 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('project', [ProjectController::class ,'index']);
+Route::apiResource('project', ProjectController::class)->parameters([
+    'projects'=>'project:slug'
+]);
+
